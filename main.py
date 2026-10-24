@@ -1,5 +1,6 @@
 import random
-from flask import Flask, render_template, session, redirect, url_for
+
+from flask import Flask, redirect, render_template, session, url_for
 
 f = Flask(__name__)
 f.secret_key = 'н#е3фтЕ-9югА5нс№к_5%4!3'
@@ -40,11 +41,43 @@ def index():
 @f.route('/start')
 def start():
     session['score'] = 0
-    return redirect(url_for('question', qid=random.randint(0, len(QUESTIONS)-1)))
+    order = list(range(len(QUESTIONS)))
+    random.shuffle(order)
+    session['order'] = order
+    return redirect(url_for('next_question'))
+    #return redirect(url_for('question', qid=random.randint(0, len(QUESTIONS)-1)))
+
 
 @f.route('/question/<int:qid>')
 def question(qid):
     if 0 <= qid < len(QUESTIONS):
-        return render_template('question.html', q=QUESTIONS[qid])
+        return render_template('question.html', q=QUESTIONS[qid], qid=qid)
+    return redirect(url_for('index'))
+
+
+@f.route('/answer/<int:qid>/<int:choice>')
+def answer(qid, choice):
+    if choice == QUESTIONS[qid]['answer']:
+        session['score'] += 1
+        return render_template('answer.html', correct=True, score=session['score'])
+    else:
+        return render_template('answer.html', correct=False, score=session['score'])
+    #return redirect(url_for('next_question'))
+
+
+@f.route('/next')
+def next_question():
+    order = session['order']
+    if not order:
+        return redirect(url_for('result'))
+    qid = order.pop(0)
+    session['order'] = order
+    return redirect(url_for('question', qid=qid))
+
+
+@f.route('/result')
+def result():
+    return render_template('result.html', score=session['score'], total=len(QUESTIONS))
+
 
 f.run(debug=True)

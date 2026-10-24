@@ -8,7 +8,7 @@
 <body>
     <h2>{{q.text}}</h2>
     {%for c in q.choices%}
-        <a>{{c}}</a>
+        <br><a href="{{url_for('answer', qid=qid, choice=loop.index0)}}">{{c}}</a>
     {%endfor%}
 </body>
 </html>

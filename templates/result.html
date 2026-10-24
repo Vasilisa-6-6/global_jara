@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Итог</title>
+</head>
+<body>
+    <h1>Ты правильно принял {{score}} решений из {{total}}</h1>
+    {%if score == total%}
+    <p>🥳🎉🎊Глобальное потепление приосиановилось!🥳🎉🎊</p>
+    {%else%}
+    <p>Планета перегрелась</p>
+    {%endif%}
+</body>
+</html>
