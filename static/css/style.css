@@ -1,0 +1,29 @@
+.Center {
+    
+    font-size: 135px;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    justify-content: center;
+}
+
+.Button {
+    background: #593d2e;
+    color: #FFF;
+    padding: 30px 60px 50px 60px;
+    border-radius: 10000px;
+}
+
+body {
+    background: #c7a785;
+    font-family: 'Comic Sans MS';
+}
+
+a{
+    text-decoration: none;
+    color:#b77957;
+}
+
+h2{
+    color: #b77957;
+}
